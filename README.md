@@ -48,15 +48,41 @@ python src/pipeline.py \
 pytest tests/ -v
 ```
 
-## Project Structure
+## Data Sources / Źródła Danych
+
+The project ships with a **synthetic dataset** for prototyping.  For the real-world validation phase (required for Ścieżka SMART KPIs), real clinical trial data can be ingested via `src/data_adapter.py`, which maps standard **CDISC SDTM** domain files (AE, DM, LB, VS, MH) to the pipeline schema.
+
+See [`docs/data_sources.md`](docs/data_sources.md) for a full list of real-world SAE data sources:
+
+- PhysioNet / MIMIC-IV
+- FAERS (FDA Adverse Event Reporting System)
+- EudraVigilance (EMA)
+- CDISC Pilot Study Dataset (public)
+- ClinicalTrials.gov results data
+
+```bash
+# Use the SDTM adapter to convert real data:
+python src/data_adapter.py \
+    --ae data/raw/ae.csv \
+    --dm data/raw/dm.csv \
+    --lb data/raw/lb.csv \
+    --vs data/raw/vs.csv \
+    --mh data/raw/mh.csv \
+    --out data/raw/clinical_trial_data.csv
+```
+
+
 
 ```
 ├── configs/
 │   └── config.yaml               # Central hyperparameter & path configuration
 ├── data/
-│   ├── raw/                      # Real data (not committed)
+│   ├── raw/                      # Real data (not committed) – see data/raw/README.md
 │   └── synthetic/
 │       └── generate_synthetic.py # Synthetic dataset generator
+├── docs/
+│   ├── data_sources.md           # Real-world SAE data sources (SDTM, FAERS, MIMIC …)
+│   └── smart_project.md          # Ścieżka SMART (NCBiR) project documentation
 ├── notebooks/
 │   ├── 01_EDA.ipynb
 │   ├── 02_Preprocessing.ipynb
@@ -65,12 +91,14 @@ pytest tests/ -v
 │   └── figures/                  # Auto-generated diagnostic plots
 ├── src/
 │   ├── __init__.py
+│   ├── data_adapter.py           # CDISC SDTM → pipeline schema adapter
 │   ├── preprocessing.py          # Data loading, cleaning, feature engineering
 │   ├── models.py                 # Model training & persistence
 │   ├── evaluation.py             # Metrics & diagnostic plots
 │   ├── explainability.py         # SHAP + LIME explanations
 │   └── pipeline.py               # End-to-end CLI pipeline
 ├── tests/
+│   ├── test_data_adapter.py
 │   ├── test_preprocessing.py
 │   ├── test_models.py
 │   └── test_evaluation.py
@@ -111,6 +139,8 @@ Projekt realizowany w ramach **Ścieżki SMART** (Fundusze Europejskie dla Nowoc
 **Niepewność badawcza**: Brak jest sprawdzonej, ogólnie dostępnej metody przewidywania SAE na poziomie pacjenta w czasie rzeczywistym. Projekt weryfikuje hipotezę, że modele ML trenowane na danych rutynowo zbieranych w badaniach klinicznych mogą znacząco zwiększyć wykrywalność SAE *przed* ich wystąpieniem.
 
 **Wartość społeczna**: Wczesna identyfikacja pacjentów wysokiego ryzyka może redukować liczbę poważnych zdarzeń niepożądanych, obniżać koszty badań klinicznych oraz przyśpieszać rejestrację bezpiecznych leków.
+
+Szczegółowy opis projektu SMART (cele, KPI, harmonogram B+R, aspekty regulacyjne) – zob. [`docs/smart_project.md`](docs/smart_project.md).
 
 ## References
 

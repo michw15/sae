@@ -44,6 +44,7 @@ htmlcov/
 # Raw data (never committed)
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/README.md
 
 # Trained models
 models/*.joblib
