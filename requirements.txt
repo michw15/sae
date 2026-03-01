@@ -2,7 +2,7 @@ pandas==2.1.4
 numpy==1.26.3
 scikit-learn==1.4.0
 xgboost==2.0.3
-lightgbm==4.2.0
+lightgbm==4.6.0
 shap==0.44.0
 lime==0.2.0.1
 imbalanced-learn==0.11.0
