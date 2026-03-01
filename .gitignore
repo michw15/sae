@@ -1,0 +1,61 @@
+# SAE Prediction – Python project gitignore
+
+# Byte-compiled / optimised
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Distribution / packaging
+.Python
+build/
+dist/
+eggs/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.*
+
+# Raw data (never committed)
+data/raw/*
+!data/raw/.gitkeep
+
+# Trained models
+models/*.joblib
+models/*.pkl
+
+# Logs
+logs/
+
+# Report figures (generated artefacts)
+reports/figures/*.png
+reports/figures/*.jpg
+reports/figures/*.svg
+
+# macOS
+.DS_Store

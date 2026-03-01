@@ -1,0 +1,80 @@
+data:
+  synthetic_path: "data/synthetic/clinical_trial_data.csv"
+  test_size: 0.2
+  random_state: 42
+  target_col: "sae_occurred"
+
+features:
+  numeric:
+    - age
+    - weight
+    - height
+    - bmi
+    - alt
+    - ast
+    - creatinine
+    - hemoglobin
+    - platelets
+    - wbc
+    - systolic_bp
+    - diastolic_bp
+    - heart_rate
+    - temperature
+    - comorbidity_score
+    - lab_risk_score
+    - age_comorbidity_interaction
+    - visit_number
+    - dose_level
+  categorical:
+    - sex
+    - study_phase
+    - age_group
+    - bmi_category
+  binary:
+    - diabetes
+    - hypertension
+    - renal_impairment
+    - hepatic_impairment
+    - prior_sae
+    - cardiac_history
+    - treatment_arm
+    - treatment_prior_sae
+
+models:
+  logistic_regression:
+    C: [0.01, 0.1, 1.0, 10.0]
+    max_iter: 1000
+    class_weight: "balanced"
+  random_forest:
+    n_estimators: [100, 200]
+    max_depth: [5, 10, null]
+    class_weight: "balanced"
+  xgboost:
+    n_estimators: [100, 200]
+    max_depth: [3, 5]
+    learning_rate: [0.05, 0.1]
+  lightgbm:
+    n_estimators: [100, 200]
+    num_leaves: [31, 63]
+    learning_rate: [0.05, 0.1]
+
+evaluation:
+  threshold_method: "youden"
+  output_dir: "reports/figures/"
+  metrics:
+    - auc_roc
+    - auc_pr
+    - sensitivity
+    - specificity
+    - brier_score
+    - f1
+
+explainability:
+  shap_sample_size: 200
+  lime_num_features: 10
+  output_dir: "reports/figures/"
+
+output:
+  models_dir: "models/"
+  reports_dir: "reports/"
+  logs_dir: "logs/"
